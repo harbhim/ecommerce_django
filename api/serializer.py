@@ -21,7 +21,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ["customer", "product", "order_quantity"]
+        fields = ["customer", "product", "order_quantity", "price", "total"]
 
     def to_representation(self, instance):
         rep = super().to_representation(instance)
@@ -29,25 +29,20 @@ class OrderSerializer(serializers.ModelSerializer):
         return rep
 
     def create(self, validated_data):
-        ######################################################################
-        #                   Creating and Saving Customer                     #
-        ######################################################################
+
+        #################  Creating and Saving Customer  #######################
 
         customer_data = validated_data.pop("customer")
         customer = CustomerSerializer.create(
             CustomerSerializer(), validated_data=customer_data
         )
 
-        ######################################################################
-        #               Creating Current User Object                         #
-        ######################################################################
+        ################  Creating Current User Object  #######################
 
         request = self.context["request"]
         user = request.user
 
-        #####################################################################
-        #               Updating Product Quantity when Ordered              #
-        #####################################################################
+        ###############  Updating Product Quantity when Ordered  #############
 
         remaining_quantity = (
             validated_data["product"].quantity - validated_data["order_quantity"]
@@ -55,10 +50,16 @@ class OrderSerializer(serializers.ModelSerializer):
         Product.objects.filter(id=validated_data["product"].id).update(
             quantity=remaining_quantity
         )
-        ######################################################################
-        #               Saving Order with staff object                       #
-        ######################################################################
-        obj = Order.objects.create(customer=customer, staff=user, **validated_data)
+
+        ################# Calculating Total Bill Amount  ##################
+
+        total = validated_data["price"] * validated_data["order_quantity"]
+
+        ##############  Saving Order with staff object  #####################
+
+        obj = Order.objects.create(
+            customer=customer, staff=user, total=total, **validated_data
+        )
         return obj
 
 

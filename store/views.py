@@ -35,6 +35,7 @@ def index(request):
             instance = form.save(commit=False)
             instance.customer = Customer.objects.all().latest("id")
             instance.staff = request.user
+            instance.total = instance.price * instance.order_quantity
 
             # Updating Product quantity
 

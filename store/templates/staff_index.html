@@ -22,16 +22,16 @@
           Orders Records
         </div>
         <div class="card-body">
-          <table class="table bg-white">
+          <table class="table table-striped bg-white">
             <thead class="bg-info text-white">
               <tr>
                 <th scope="col">Customer</th>
                 <th scope="col">Product</th>
                 <th scope="col">Category</th>
+                <th scope="col">Date</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Price</th>
                 <th scope="col">Total</th>
-                <th scope="col">Date</th>
               </tr>
             </thead>
             <tbody>
@@ -40,10 +40,10 @@
                 <td>{{order.customer.name|capfirst}}</td>
                 <td>{{order.product.name|capfirst}}</td>
                 <td>{{order.product.category|capfirst}}</td>
+                <td>{{order.date}}</td>
                 <td>{{order.order_quantity}}</td>
                 <td>{{order.price}}</td>
                 <td>{{order.total}}</td>
-                <td>{{order.date}}</td>
               </tr>
               {% endfor %}
 

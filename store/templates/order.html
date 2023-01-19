@@ -6,20 +6,17 @@
 <!--Table-->
 <div class="container">
   <div class="row my-4">
-    <div class="col-md-4">
-
-    </div>
-    <div class="col-md-8">
+    <div class="col-md-12">
       <table class="table bg-white">
         <thead class="bg-info">
           <tr class="text-white">
             <th scope="col">Product</th>
             <th scope="col">Category</th>
+            <th scope="col">Order by</th>
+            <th scope="col">Date N Time</th>
             <th scope="col">Quantity</th>
             <th scope="col">Price</th>
             <th scope="col">Total</th>
-            <th scope="col">Order by</th>
-            <th scope="col">Date N Time</th>
           </tr>
         </thead>
         <tbody>
@@ -27,11 +24,11 @@
           <tr>
             <td>{{order.product.name}}</td>
             <td>{{order.product.category}}</td>
+            <td>{{order.staff.username}}</td>
+            <td>{{order.date}}</td>
             <td>{{order.order_quantity}}</td>
             <td>{{order.price}}</td>
             <td>{{order.total}}</td>
-            <td>{{order.staff.username}}</td>
-            <td>{{order.date}}</td>
           </tr>
           {% endfor %}
         </tbody>

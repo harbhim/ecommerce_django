@@ -1,5 +1,7 @@
 body{
-    background: rgb(230, 227, 227);
+    /* background: rgb(230, 227, 227); */
+    background: #DCECEF;
+;
 }
 
 .my-card:hover{
